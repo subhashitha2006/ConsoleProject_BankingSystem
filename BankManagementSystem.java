@@ -15,14 +15,14 @@ public class BankManagementSystem {
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
-            System.out.println("4. Exit");
+            System.out.println("4. Balance Check");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
 
             switch (choice) {
 
-                // CREATE ACCOUNT
                 case 1:
                     System.out.print("Enter Account ID: ");
                     int accountId = sc.nextInt();
@@ -53,7 +53,6 @@ public class BankManagementSystem {
                     }
                     break;
 
-                // DEPOSIT
                 case 2:
                     System.out.print("Enter Account ID: ");
                     int depositId = sc.nextInt();
@@ -80,7 +79,6 @@ public class BankManagementSystem {
                     }
                     break;
 
-                // WITHDRAW
                 case 3:
                     System.out.print("Enter Account ID: ");
                     int withdrawId = sc.nextInt();
@@ -97,12 +95,10 @@ public class BankManagementSystem {
                             withdrawFound = true;
 
                             if (withdrawAmount <= account.balance) {
-
                                 account.balance -= withdrawAmount;
 
                                 System.out.println("Withdraw successful!");
                                 System.out.println("Current Balance: " + account.balance);
-
                             } else {
                                 System.out.println("Insufficient balance!");
                             }
@@ -116,8 +112,33 @@ public class BankManagementSystem {
                     }
                     break;
 
-                // EXIT
                 case 4:
+                    System.out.print("Enter Account ID: ");
+                    int balanceId = sc.nextInt();
+
+                    boolean balanceFound = false;
+
+                    for (Account account : accounts) {
+
+                        if (account.accountId == balanceId) {
+
+                            balanceFound = true;
+
+                            System.out.println("\n----- ACCOUNT DETAILS -----");
+                            System.out.println("Account ID: " + account.accountId);
+                            System.out.println("Name: " + account.name);
+                            System.out.println("Current Balance: " + account.balance);
+
+                            break;
+                        }
+                    }
+
+                    if (!balanceFound) {
+                        System.out.println("Account not found!");
+                    }
+                    break;
+
+                case 5:
                     System.out.println("Thank you for using Bank Management System!");
                     sc.close();
                     return;
