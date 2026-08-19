@@ -9,35 +9,84 @@ public class BankManagementSystem {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter Account ID: ");
-        int accountId = sc.nextInt();
-        sc.nextLine();
+        while (true) {
 
-        System.out.print("Enter Name: ");
-        String name = sc.nextLine();
+            System.out.println("\n===== BANK MANAGEMENT SYSTEM =====");
+            System.out.println("1. Create Account");
+            System.out.println("2. Deposit");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
 
-        System.out.print("Enter Initial Balance: ");
-        double balance = sc.nextDouble();
+            int choice = sc.nextInt();
 
-        boolean exists = false;
+            switch (choice) {
 
-        // Check duplicate Account ID
-        for (Account account : accounts) {
-            if (account.accountId == accountId) {
-                exists = true;
-                break;
+                case 1:
+                    // Create Account
+                    System.out.print("Enter Account ID: ");
+                    int accountId = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("Enter Name: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Enter Initial Balance: ");
+                    double balance = sc.nextDouble();
+
+                    boolean exists = false;
+
+                    for (Account account : accounts) {
+                        if (account.accountId == accountId) {
+                            exists = true;
+                            break;
+                        }
+                    }
+
+                    if (exists) {
+                        System.out.println("Account ID already exists!");
+                    } else {
+                        Account account = new Account(accountId, name, balance);
+                        accounts.add(account);
+
+                        System.out.println("Account created successfully!");
+                    }
+                    break;
+
+                case 2:
+                    // Deposit
+                    System.out.print("Enter Account ID: ");
+                    int depositId = sc.nextInt();
+
+                    System.out.print("Enter Deposit Amount: ");
+                    double depositAmount = sc.nextDouble();
+
+                    boolean found = false;
+
+                    for (Account account : accounts) {
+                        if (account.accountId == depositId) {
+
+                            account.balance += depositAmount;
+                            found = true;
+
+                            System.out.println("Deposit successful!");
+                            System.out.println("Current Balance: " + account.balance);
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("Account not found!");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Thank you!");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice!");
             }
         }
-
-        if (exists) {
-            System.out.println("Account ID already exists!");
-        } else {
-            Account account = new Account(accountId, name, balance);
-            accounts.add(account);
-
-            System.out.println("Account created successfully!");
-        }
-
-        sc.close();
     }
 }
