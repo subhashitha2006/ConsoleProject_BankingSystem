@@ -15,7 +15,8 @@ public class BankManagementSystem {
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
-            System.out.println("4. Exit");
+            System.out.println("4. Balance Check");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
@@ -78,14 +79,12 @@ public class BankManagementSystem {
                     if (withdrawAccount != null) {
 
                         if (withdrawAmount <= withdrawAccount.balance) {
-
                             withdrawAccount.balance -= withdrawAmount;
 
                             System.out.println("Withdraw successful!");
                             System.out.println(
                                     "Current Balance: "
                                     + withdrawAccount.balance);
-
                         } else {
                             System.out.println("Insufficient balance!");
                         }
@@ -96,6 +95,28 @@ public class BankManagementSystem {
                     break;
 
                 case 4:
+                    System.out.print("Enter Account ID: ");
+                    int balanceId = sc.nextInt();
+
+                    Account balanceAccount = accounts.get(balanceId);
+
+                    if (balanceAccount != null) {
+
+                        System.out.println("\n----- ACCOUNT DETAILS -----");
+                        System.out.println(
+                                "Account ID: " + balanceAccount.accountId);
+                        System.out.println(
+                                "Name: " + balanceAccount.name);
+                        System.out.println(
+                                "Current Balance: "
+                                + balanceAccount.balance);
+
+                    } else {
+                        System.out.println("Account not found!");
+                    }
+                    break;
+
+                case 5:
                     System.out.println("Thank you!");
                     sc.close();
                     return;
