@@ -14,7 +14,8 @@ public class BankManagementSystem {
             System.out.println("\n===== BANK MANAGEMENT SYSTEM =====");
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
-            System.out.println("3. Exit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
@@ -51,20 +52,50 @@ public class BankManagementSystem {
                     System.out.print("Enter Deposit Amount: ");
                     double depositAmount = sc.nextDouble();
 
-                    Account account = accounts.get(depositId);
+                    Account depositAccount = accounts.get(depositId);
 
-                    if (account != null) {
-                        account.balance += depositAmount;
+                    if (depositAccount != null) {
+                        depositAccount.balance += depositAmount;
 
                         System.out.println("Deposit successful!");
                         System.out.println(
-                                "Current Balance: " + account.balance);
+                                "Current Balance: "
+                                + depositAccount.balance);
                     } else {
                         System.out.println("Account not found!");
                     }
                     break;
 
                 case 3:
+                    System.out.print("Enter Account ID: ");
+                    int withdrawId = sc.nextInt();
+
+                    System.out.print("Enter Withdraw Amount: ");
+                    double withdrawAmount = sc.nextDouble();
+
+                    Account withdrawAccount = accounts.get(withdrawId);
+
+                    if (withdrawAccount != null) {
+
+                        if (withdrawAmount <= withdrawAccount.balance) {
+
+                            withdrawAccount.balance -= withdrawAmount;
+
+                            System.out.println("Withdraw successful!");
+                            System.out.println(
+                                    "Current Balance: "
+                                    + withdrawAccount.balance);
+
+                        } else {
+                            System.out.println("Insufficient balance!");
+                        }
+
+                    } else {
+                        System.out.println("Account not found!");
+                    }
+                    break;
+
+                case 4:
                     System.out.println("Thank you!");
                     sc.close();
                     return;
