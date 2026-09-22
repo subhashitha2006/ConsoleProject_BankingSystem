@@ -13,7 +13,8 @@ public class BankManagementSystem {
 
             System.out.println("\n===== BANK MANAGEMENT SYSTEM =====");
             System.out.println("1. Create Account");
-            System.out.println("2. Exit");
+            System.out.println("2. Deposit");
+            System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
@@ -34,7 +35,6 @@ public class BankManagementSystem {
                     if (accounts.containsKey(accountId)) {
                         System.out.println("Account ID already exists!");
                     } else {
-
                         Account account =
                                 new Account(accountId, name, balance);
 
@@ -46,6 +46,32 @@ public class BankManagementSystem {
                     break;
 
                 case 2:
+                    System.out.print("Enter Account ID: ");
+                    int depositId = sc.nextInt();
+
+                    if (accounts.containsKey(depositId)) {
+
+                        System.out.print("Enter Deposit Amount: ");
+                        double amount = sc.nextDouble();
+
+                        if (amount > 0) {
+                            Account account = accounts.get(depositId);
+
+                            account.balance = account.balance + amount;
+
+                            System.out.println("Deposit successful!");
+                            System.out.println("Current Balance: " + account.balance);
+                        } else {
+                            System.out.println("Invalid deposit amount!");
+                        }
+
+                    } else {
+                        System.out.println("Account not found!");
+                    }
+
+                    break;
+
+                case 3:
                     System.out.println("Thank you!");
                     sc.close();
                     return;
