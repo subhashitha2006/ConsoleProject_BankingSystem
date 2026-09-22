@@ -1,9 +1,9 @@
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class BankManagementSystem {
 
-    static HashMap<Integer, Account> accounts = new HashMap<>();
+    static LinkedHashMap<Integer, Account> accounts = new LinkedHashMap<>();
 
     public static void main(String[] args) {
 
@@ -13,10 +13,7 @@ public class BankManagementSystem {
 
             System.out.println("\n===== BANK MANAGEMENT SYSTEM =====");
             System.out.println("1. Create Account");
-            System.out.println("2. Deposit");
-            System.out.println("3. Withdraw");
-            System.out.println("4. Balance Check");
-            System.out.println("5. Exit");
+            System.out.println("2. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = sc.nextInt();
@@ -37,6 +34,7 @@ public class BankManagementSystem {
                     if (accounts.containsKey(accountId)) {
                         System.out.println("Account ID already exists!");
                     } else {
+
                         Account account =
                                 new Account(accountId, name, balance);
 
@@ -44,79 +42,10 @@ public class BankManagementSystem {
 
                         System.out.println("Account created successfully!");
                     }
+
                     break;
 
                 case 2:
-                    System.out.print("Enter Account ID: ");
-                    int depositId = sc.nextInt();
-
-                    System.out.print("Enter Deposit Amount: ");
-                    double depositAmount = sc.nextDouble();
-
-                    Account depositAccount = accounts.get(depositId);
-
-                    if (depositAccount != null) {
-                        depositAccount.balance += depositAmount;
-
-                        System.out.println("Deposit successful!");
-                        System.out.println(
-                                "Current Balance: "
-                                + depositAccount.balance);
-                    } else {
-                        System.out.println("Account not found!");
-                    }
-                    break;
-
-                case 3:
-                    System.out.print("Enter Account ID: ");
-                    int withdrawId = sc.nextInt();
-
-                    System.out.print("Enter Withdraw Amount: ");
-                    double withdrawAmount = sc.nextDouble();
-
-                    Account withdrawAccount = accounts.get(withdrawId);
-
-                    if (withdrawAccount != null) {
-
-                        if (withdrawAmount <= withdrawAccount.balance) {
-                            withdrawAccount.balance -= withdrawAmount;
-
-                            System.out.println("Withdraw successful!");
-                            System.out.println(
-                                    "Current Balance: "
-                                    + withdrawAccount.balance);
-                        } else {
-                            System.out.println("Insufficient balance!");
-                        }
-
-                    } else {
-                        System.out.println("Account not found!");
-                    }
-                    break;
-
-                case 4:
-                    System.out.print("Enter Account ID: ");
-                    int balanceId = sc.nextInt();
-
-                    Account balanceAccount = accounts.get(balanceId);
-
-                    if (balanceAccount != null) {
-
-                        System.out.println("\n----- ACCOUNT DETAILS -----");
-                        System.out.println(
-                                "Account ID: " + balanceAccount.accountId);
-                        System.out.println(
-                                "Name: " + balanceAccount.name);
-                        System.out.println(
-                                "Current Balance: "
-                                + balanceAccount.balance);
-
-                    } else {
-                        System.out.println("Account not found!");
-                    }
-                    break;
-
-                case 5:
                     System.out.println("Thank you!");
                     sc.close();
                     return;
